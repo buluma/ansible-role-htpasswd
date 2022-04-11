@@ -1,0 +1,4 @@
+---
+- src: buluma.bootstrap
+- src: buluma.apache
+- src: buluma.nginx

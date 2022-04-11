@@ -1,0 +1,8 @@
+---
+#
+# Ansible managed
+#
+repository:
+  description: htpasswd installation and helper role for Linux servers.
+  homepage: https://buluma.github.io/
+  topics: system, web, webserver, apache, nginx, http, basic, authentication, htpasswd, htaccess, security, ansible, molecule, tox, playbook, hacktoberfest
