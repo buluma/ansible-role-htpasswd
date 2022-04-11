@@ -24,13 +24,13 @@ molecule:
         tag: "latest"
       - image: "debian-systemd"
         tag: "latest"
-      - image: "debian-systemd"
+      - image: "debian"
         tag: "bookworm"
       - image: "docker-ubuntu-systemd"
         tag: "latest"
-      - image: "docker-ubuntu-systemd"
+      - image: "ubuntu"
         tag: "bionic"
-      - image: "docker-ubuntu-systemd"
+      - image: "ubuntu"
         tag: "focal"
 
 testing:
