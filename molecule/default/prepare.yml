@@ -3,5 +3,5 @@
 - hosts: all
   roles:
     - name: buluma.bootstrap
-    - name: buluma.apache
-    - name: buluma.nginx
+    - name: geerlingguy.apache
+    - name: geerlingguy.nginx

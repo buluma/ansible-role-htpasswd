@@ -1,4 +1,4 @@
 ---
 - src: buluma.bootstrap
-- src: buluma.apache
-- src: buluma.nginx
+- src: geerlingguy.apache
+- src: geerlingguy.nginx

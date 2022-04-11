@@ -33,5 +33,5 @@
 
   roles:
     - role: buluma.bootstrap
-    - role: buluma.nginx
+    - role: geerlingguy.nginx
     - role: ansible-role-htpasswd
