@@ -1,0 +1,13 @@
+digraph PhiloDilemma {
+  label = "Michael Buluma" ;
+  overlap=false
+  {
+    "htpasswd" [fillcolor=yellow style=filled penwidth=3]
+    "buluma.bootstrap" [fillcolor=green style=filled]
+    "geerlingguy.apache" [fillcolor=green style=filled]
+    "geerlingguy.nginx" [fillcolor=green style=filled]
+  }
+  "htpasswd" -> "buluma.bootstrap"
+  "htpasswd" -> "geerlingguy.apache"
+  "htpasswd" -> "geerlingguy.nginx"
+}
