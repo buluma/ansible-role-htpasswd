@@ -2,15 +2,14 @@
 #
 # Ansible managed
 #
-exclude_paths:
-  - ./meta/exception.yml
-  - ./meta/preferences.yml
-  - ./molecule/default/nginx.yml
-  - ./molecule/default/converge.yml
-  - ./molecule/default/apache.yml
-  - ./molecule/default/collections.yml
-  - ./.tox
-  - ./.cache
+  - molecule/default/collections.yml
+  - .tox
+  - .cache
+  - .github
+  - requirements.yml
 
 skip_list:
-  - fqcn-builtins
+  - yaml[truthy]
+
+enable_list:
+  - name[prefix]
