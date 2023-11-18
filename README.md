@@ -1,4 +1,4 @@
-# [htpasswd](#htpasswd)
+# [Ansible role htpasswd](#htpasswd)
 
 htpasswd installation and helper role for Linux servers.
 
