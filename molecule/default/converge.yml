@@ -29,4 +29,4 @@
   roles:
     - role: buluma.bootstrap
     - role: geerlingguy.apache
-    - role: ansible-role-htpasswd
+    - role: buluma.htpasswd
