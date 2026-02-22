@@ -1,35 +1,34 @@
----
 dependencies: []
 galaxy_info:
-  role_name: htpasswd
   author: Michael Buluma
-  namespace: buluma
-  description: htpasswd installation and helper role for Linux servers.
   company: ShadowNet
+  description: htpasswd installation and helper role for Linux servers.
+  galaxy_tags:
+  - system
+  - web
+  - webserver
+  - apache
+  - nginx
+  - http
+  - basic
+  - authentication
+  - htpasswd
+  - htaccess
+  - security
   license: Apache-2.0
   min_ansible_version: '2.9'
+  namespace: buluma
   platforms:
-    - name: EL
-      versions:
-        - all
-    - name: Fedora
-      versions:
-        - all
-    - name: Debian
-      versions:
-        - all
-    - name: Ubuntu
-      versions:
-        - all
-  galaxy_tags:
-    - system
-    - web
-    - webserver
-    - apache
-    - nginx
-    - http
-    - basic
-    - authentication
-    - htpasswd
-    - htaccess
-    - security
+  - name: EL
+    versions:
+    - all
+  - name: Fedora
+    versions:
+    - all
+  - name: Debian
+    versions:
+    - all
+  - name: Ubuntu
+    versions:
+    - all
+  role_name: htpasswd

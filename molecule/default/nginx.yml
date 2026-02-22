@@ -1,37 +1,28 @@
----
-# # Note: This playbook is built to work on Debian-derivative Linux OSes.
-- name: Converge
+- become: true
   hosts: all
-  become: true
-
+  name: Converge
+  pre_tasks:
+  - apt: update_cache=true cache_valid_time=600
+    name: Update apt cache.
+    when: ansible_os_family == 'Debian'
+  roles:
+  - role: buluma.bootstrap
+  - role: geerlingguy.nginx
+  - role: ansible-role-htpasswd
   vars:
     htpasswd_credentials:
-      - path: /etc/nginx/passwdfile
-        name: johndoe
-        password: 'supersecure'
-        owner: root
-        group: www-data
-        mode: 'u+rw,g+r'
-
+    - group: www-data
+      mode: u+rw,g+r
+      name: johndoe
+      owner: root
+      password: supersecure
+      path: /etc/nginx/passwdfile
     nginx_remove_default_vhost: true
     nginx_vhosts:
-      - listen: "80"
-        server_name: "htpassword.test"
-        root: "/var/www/html"
-        index: "index.html index.html index.nginx-debian.html"
-        filename: "htpassword.test.conf"
-        extra_parameters: |
-              location / {
-                  auth_basic           "Nginx with basic auth.";
-                  auth_basic_user_file /etc/nginx/passwdfile;
-              }
-
-  pre_tasks:
-    - name: Update apt cache.
-      apt: update_cache=true cache_valid_time=600
-      when: ansible_os_family == 'Debian'
-
-  roles:
-    - role: buluma.bootstrap
-    - role: geerlingguy.nginx
-    - role: ansible-role-htpasswd
+    - extra_parameters: "location / {\n    auth_basic           \"Nginx with basic\
+        \ auth.\";\n    auth_basic_user_file /etc/nginx/passwdfile;\n}\n"
+      filename: htpassword.test.conf
+      index: index.html index.html index.nginx-debian.html
+      listen: '80'
+      root: /var/www/html
+      server_name: htpassword.test
