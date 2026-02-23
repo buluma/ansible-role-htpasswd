@@ -1,21 +1,21 @@
 ---
-  - include_vars: '{{ ansible_os_family }}.yml'
-    name: Include OS-specific variables.
-  - ansible.builtin.set_fact:
-      htpasswd_required_packages: '{{ __htpasswd_required_packages | list }}'
-    name: Define htpasswd_required_packages.
-    when: htpasswd_required_packages is not defined
-  - ansible.builtin.package:
-      name: '{{ htpasswd_required_packages }}'
-      state: present
-    name: Ensure the htpasswd packages are installed.
-  - community.general.htpasswd:
-      group: '{{ item.group }}'
-      mode: '{{ item.mode | default(''u+rw,g+r'') }}'
-      name: '{{ item.name }}'
-      owner: '{{ item.owner }}'
-      password: '{{ item.password }}'
-      path: '{{ item.path }}'
-    name: Ensure htpasswd credentials are configured.
-    no_log: '{{ htpasswd_nolog }}'
-    with_items: '{{ htpasswd_credentials }}'
+- include_vars: '{{ ansible_os_family }}.yml'
+  name: Include OS-specific variables.
+- ansible.builtin.set_fact:
+    htpasswd_required_packages: '{{ __htpasswd_required_packages | list }}'
+  name: Define htpasswd_required_packages.
+  when: htpasswd_required_packages is not defined
+- ansible.builtin.package:
+    name: '{{ htpasswd_required_packages }}'
+    state: present
+  name: Ensure the htpasswd packages are installed.
+- community.general.htpasswd:
+    group: '{{ item.group }}'
+    mode: '{{ item.mode | default(''u+rw,g+r'') }}'
+    name: '{{ item.name }}'
+    owner: '{{ item.owner }}'
+    password: '{{ item.password }}'
+    path: '{{ item.path }}'
+  name: Ensure htpasswd credentials are configured.
+  no_log: '{{ htpasswd_nolog }}'
+  with_items: '{{ htpasswd_credentials }}'
