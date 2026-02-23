@@ -11,39 +11,41 @@ htpasswd installation and helper role for Linux servers.
 This example is taken from [`molecule/default/converge.yml`](https://github.com/buluma/ansible-role-htpasswd/blob/master/molecule/default/converge.yml) and is tested on each push, pull request and release.
 
 ```yaml
-- become: true
-  hosts: all
-  name: Converge
-  roles:
-  - role: buluma.bootstrap
-  - role: geerlingguy.apache
-  - role: buluma.htpasswd
-  vars:
-    apache_remove_default_vhost: true
-    apache_vhosts:
-    - documentroot: /var/www/html
-      extra_parameters: "<Directory \"/var/www/html\">\n    AuthType Basic\n    AuthName\
-        \ \"Apache with basic auth.\"\n    AuthUserFile /etc/httpd/passwdfile\n  \
-        \  Require valid-user\n</Directory>\n"
-      listen: '80'
-      servername: htpassword.test
-    htpasswd_credentials:
-    - group: apache
-      mode: u+rw,g+r
-      name: johndoe
-      owner: root
-      password: supersecure
-      path: /etc/httpd/passwdfile
+---
+  - become: true
+    hosts: all
+    name: Converge
+    roles:
+      - role: buluma.bootstrap
+      - role: geerlingguy.apache
+      - role: buluma.htpasswd
+    vars:
+      apache_remove_default_vhost: true
+      apache_vhosts:
+        - documentroot: /var/www/html
+          extra_parameters: "<Directory \"/var/www/html\">\n    AuthType Basic\n \
+            \   AuthName \"Apache with basic auth.\"\n    AuthUserFile /etc/httpd/passwdfile\n\
+            \    Require valid-user\n</Directory>\n"
+          listen: '80'
+          servername: htpassword.test
+      htpasswd_credentials:
+        - group: apache
+          mode: u+rw,g+r
+          name: johndoe
+          owner: root
+          password: supersecure
+          path: /etc/httpd/passwdfile
 ```
 
 The machine needs to be prepared. In CI this is done using [`molecule/default/prepare.yml`](https://github.com/buluma/ansible-role-htpasswd/blob/master/molecule/default/prepare.yml):
 
 ```yaml
-- hosts: all
-  roles:
-  - name: buluma.bootstrap
-  - name: buluma.apache
-  - name: buluma.nginx
+---
+  - hosts: all
+    roles:
+      - name: buluma.bootstrap
+      - name: buluma.apache
+      - name: buluma.nginx
 ```
 
 Also see a [full explanation and example](https://buluma.github.io/how-to-use-these-roles.html) on how to use these roles.
@@ -53,6 +55,7 @@ Also see a [full explanation and example](https://buluma.github.io/how-to-use-th
 The default values for the variables are set in [`defaults/main.yml`](https://github.com/buluma/ansible-role-htpasswd/blob/master/defaults/main.yml):
 
 ```yaml
+---
 htpasswd_credentials: []
 htpasswd_nolog: true
 ```

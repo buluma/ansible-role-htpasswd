@@ -1,23 +1,24 @@
-- become: true
-  hosts: all
-  name: Converge
-  roles:
-  - role: buluma.bootstrap
-  - role: geerlingguy.apache
-  - role: buluma.htpasswd
-  vars:
-    apache_remove_default_vhost: true
-    apache_vhosts:
-    - documentroot: /var/www/html
-      extra_parameters: "<Directory \"/var/www/html\">\n    AuthType Basic\n    AuthName\
-        \ \"Apache with basic auth.\"\n    AuthUserFile /etc/httpd/passwdfile\n  \
-        \  Require valid-user\n</Directory>\n"
-      listen: '80'
-      servername: htpassword.test
-    htpasswd_credentials:
-    - group: apache
-      mode: u+rw,g+r
-      name: johndoe
-      owner: root
-      password: supersecure
-      path: /etc/httpd/passwdfile
+---
+  - become: true
+    hosts: all
+    name: Converge
+    roles:
+      - role: buluma.bootstrap
+      - role: geerlingguy.apache
+      - role: buluma.htpasswd
+    vars:
+      apache_remove_default_vhost: true
+      apache_vhosts:
+        - documentroot: /var/www/html
+          extra_parameters: "<Directory \"/var/www/html\">\n    AuthType Basic\n \
+            \   AuthName \"Apache with basic auth.\"\n    AuthUserFile /etc/httpd/passwdfile\n\
+            \    Require valid-user\n</Directory>\n"
+          listen: '80'
+          servername: htpassword.test
+      htpasswd_credentials:
+        - group: apache
+          mode: u+rw,g+r
+          name: johndoe
+          owner: root
+          password: supersecure
+          path: /etc/httpd/passwdfile

@@ -1,3 +1,4 @@
+---
 __htpasswd_required_packages:
-- apache2-utils
-- python3-passlib
+  - apache2-utils
+  - python3-passlib
