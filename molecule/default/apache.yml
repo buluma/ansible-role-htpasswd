@@ -1,32 +1,23 @@
----
-# Note: This playbook is built to work on Red Hat-derivative Linux OSes.
-- name: Converge
+- become: true
   hosts: all
-  become: true
-
+  name: Converge
+  roles:
+  - role: buluma.bootstrap
+  - role: geerlingguy.apache
+  - role: ansible-role-htpasswd
   vars:
-    htpasswd_credentials:
-      - path: /etc/httpd/passwdfile
-        name: johndoe
-        password: 'supersecure'
-        owner: root
-        group: apache
-        mode: 'u+rw,g+r'
-
     apache_remove_default_vhost: true
     apache_vhosts:
-      - listen: "80"
-        servername: "htpassword.test"
-        documentroot: "/var/www/html"
-        extra_parameters: |
-              <Directory "/var/www/html">
-                  AuthType Basic
-                  AuthName "Apache with basic auth."
-                  AuthUserFile /etc/httpd/passwdfile
-                  Require valid-user
-              </Directory>
-
-  roles:
-    - role: buluma.bootstrap
-    - role: geerlingguy.apache
-    - role: ansible-role-htpasswd
+    - documentroot: /var/www/html
+      extra_parameters: "<Directory \"/var/www/html\">\n    AuthType Basic\n    AuthName\
+        \ \"Apache with basic auth.\"\n    AuthUserFile /etc/httpd/passwdfile\n  \
+        \  Require valid-user\n</Directory>\n"
+      listen: '80'
+      servername: htpassword.test
+    htpasswd_credentials:
+    - group: apache
+      mode: u+rw,g+r
+      name: johndoe
+      owner: root
+      password: supersecure
+      path: /etc/httpd/passwdfile
