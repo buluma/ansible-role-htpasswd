@@ -1,6 +1,6 @@
 ---
 - name: Include OS-specific variables.
-  ansible.builtin.include_vars: "{{ ansible_facts.os_family }}.yml"
+  ansible.builtin.include_vars: "{{ ansible_os_family }}.yml"
 - name: Define htpasswd_required_packages.
   ansible.builtin.set_fact:
     htpasswd_required_packages: "{{ __htpasswd_required_packages | list }}"

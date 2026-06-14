@@ -1,6 +1,6 @@
 ---
 - hosts: all
   roles:
-    - name: buluma.bootstrap
-    - name: buluma.apache
-    - name: buluma.nginx
+    - role: buluma.bootstrap
+    - role: buluma.apache
+    - role: buluma.nginx
