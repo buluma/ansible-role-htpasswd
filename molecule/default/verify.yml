@@ -1,0 +1,11 @@
+---
+- name: Verify
+  hosts: all
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: Check if htpasswd command is available
+      ansible.builtin.command:
+        cmd: which htpasswd
+      changed_when: false
