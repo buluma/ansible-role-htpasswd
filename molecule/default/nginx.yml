@@ -20,9 +20,7 @@
         path: /etc/nginx/passwdfile
     nginx_remove_default_vhost: true
     nginx_vhosts:
-      - extra_parameters:
-          "location / {\n    auth_basic           \"Nginx with basic
-          auth.\";\n    auth_basic_user_file /etc/nginx/passwdfile;\n}\n"
+      - extra_parameters: "location / {\n    auth_basic           \"Nginx with basic auth.\";\n    auth_basic_user_file /etc/nginx/passwdfile;\n}\n"
         filename: htpassword.test.conf
         index: index.html index.html index.nginx-debian.html
         listen: "80"
