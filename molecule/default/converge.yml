@@ -7,19 +7,21 @@
     - role: geerlingguy.apache
     - role: buluma.htpasswd
   vars:
+    _htpasswd_apache_group: "{{ 'www-data' if ansible_facts['os_family'] == 'Debian' else 'apache' }}"
+    _htpasswd_apache_passwdfile: "{{ '/etc/apache2/passwdfile' if ansible_facts['os_family'] == 'Debian' else '/etc/httpd/passwdfile' }}"
     apache_remove_default_vhost: true
     apache_vhosts:
       - documentroot: /var/www/html
         extra_parameters:
           "<Directory \"/var/www/html\">\n    AuthType Basic\n    AuthName
-          \"Apache with basic auth.\"\n    AuthUserFile /etc/httpd/passwdfile\n    Require
+          \"Apache with basic auth.\"\n    AuthUserFile {{ _htpasswd_apache_passwdfile }}\n    Require
           valid-user\n</Directory>\n"
         listen: "80"
         servername: htpassword.test
     htpasswd_credentials:
-      - group: apache
+      - group: "{{ _htpasswd_apache_group }}"
         mode: u+rw,g+r
         name: johndoe
         owner: root
         password: supersecure
-        path: /etc/httpd/passwdfile
+        path: "{{ _htpasswd_apache_passwdfile }}"

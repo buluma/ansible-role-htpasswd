@@ -6,6 +6,6 @@
 
   tasks:
     - name: Check if htpasswd command is available
-      ansible.builtin.command:
-        cmd: which htpasswd
+      ansible.builtin.shell:
+        cmd: command -v htpasswd
       changed_when: false
