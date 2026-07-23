@@ -1,15 +1,17 @@
 ---
-- become: true
+- name: Converge
+  become: true
   hosts: all
-  name: Converge
   pre_tasks:
-    - apt: update_cache=true cache_valid_time=600
-      name: Update apt cache.
+    - name: Update apt cache.
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 600
       when: ansible_facts['os_family'] == 'Debian'
   roles:
     - role: buluma.bootstrap
     - role: geerlingguy.nginx
-    - role: ansible-role-htpasswd
+    - role: buluma.htpasswd
   vars:
     htpasswd_credentials:
       - group: www-data

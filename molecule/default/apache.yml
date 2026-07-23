@@ -1,11 +1,11 @@
 ---
-- become: true
+- name: Converge
+  become: true
   hosts: all
-  name: Converge
   roles:
     - role: buluma.bootstrap
     - role: geerlingguy.apache
-    - role: ansible-role-htpasswd
+    - role: buluma.htpasswd
   vars:
     apache_remove_default_vhost: true
     apache_vhosts:
