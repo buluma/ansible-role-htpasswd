@@ -36,4 +36,3 @@
   roles:
     - role: buluma.bootstrap
     - role: buluma.apache
-    - role: buluma.nginx
