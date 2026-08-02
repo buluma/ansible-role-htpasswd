@@ -1,5 +1,17 @@
 # Changelog
 
+## [Unreleased](https://github.com/buluma/ansible-role-htpasswd/tree/HEAD)
+
+[Full Changelog](https://github.com/buluma/ansible-role-htpasswd/compare/v26.6.2...HEAD)
+
+**Merged pull requests:**
+
+- chore\(deps\): bump release-drafter/release-drafter from 7 to 7.6.0 [\#23](https://github.com/buluma/ansible-role-htpasswd/pull/23) ([dependabot[bot]](https://github.com/apps/dependabot))
+
+## [v26.6.2](https://github.com/buluma/ansible-role-htpasswd/tree/v26.6.2) (2026-07-23)
+
+[Full Changelog](https://github.com/buluma/ansible-role-htpasswd/compare/v26.6.1...v26.6.2)
+
 ## [v26.6.1](https://github.com/buluma/ansible-role-htpasswd/tree/v26.6.1) (2026-06-14)
 
 [Full Changelog](https://github.com/buluma/ansible-role-htpasswd/compare/v26.6.0...v26.6.1)
