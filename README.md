@@ -20,22 +20,24 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
     - role: geerlingguy.apache
     - role: buluma.htpasswd
   vars:
+    _htpasswd_apache_group: "{{ 'www-data' if ansible_facts['os_family'] == 'Debian' else 'apache' }}"
+    _htpasswd_apache_passwdfile: "{{ '/etc/apache2/passwdfile' if ansible_facts['os_family'] == 'Debian' else '/etc/httpd/passwdfile' }}"
     apache_remove_default_vhost: true
     apache_vhosts:
       - documentroot: /var/www/html
         extra_parameters:
           "<Directory \"/var/www/html\">\n    AuthType Basic\n    AuthName
-          \"Apache with basic auth.\"\n    AuthUserFile /etc/httpd/passwdfile\n    Require
+          \"Apache with basic auth.\"\n    AuthUserFile {{ _htpasswd_apache_passwdfile }}\n    Require
           valid-user\n</Directory>\n"
         listen: "80"
         servername: htpassword.test
     htpasswd_credentials:
-      - group: apache
+      - group: "{{ _htpasswd_apache_group }}"
         mode: u+rw,g+r
         name: johndoe
         owner: root
         password: supersecure
-        path: /etc/httpd/passwdfile
+        path: "{{ _htpasswd_apache_passwdfile }}"
 ```
 
 The machine needs to be prepared. In CI this is done using [`molecule/default/prepare.yml`](https://github.com/buluma/ansible-role-htpasswd/blob/master/molecule/default/prepare.yml):
@@ -78,8 +80,8 @@ The machine needs to be prepared. In CI this is done using [`molecule/default/pr
 
   roles:
     - role: buluma.bootstrap
+    - role: buluma.epel
     - role: buluma.apache
-    - role: buluma.nginx
 ```
 
 Also see a [full explanation and example](https://buluma.github.io/how-to-use-these-roles.html) on how to use these roles.
@@ -105,6 +107,7 @@ The following roles are used to prepare a system. You can prepare your system in
 | Requirement | GitHub |
 |-------------|--------|
 |[buluma.bootstrap](https://galaxy.ansible.com/buluma/bootstrap)|[![Build Status GitHub](https://github.com/buluma/ansible-role-bootstrap/workflows/Ansible%20Molecule/badge.svg)](https://github.com/buluma/ansible-role-bootstrap/actions)|
+|[buluma.epel](https://galaxy.ansible.com/buluma/epel)|[![Build Status GitHub](https://github.com/buluma/ansible-role-epel/workflows/Ansible%20Molecule/badge.svg)](https://github.com/buluma/ansible-role-epel/actions)|
 |[buluma.apache](https://galaxy.ansible.com/buluma/apache)|[![Build Status GitHub](https://github.com/buluma/ansible-role-apache/workflows/Ansible%20Molecule/badge.svg)](https://github.com/buluma/ansible-role-apache/actions)|
 |[buluma.nginx](https://galaxy.ansible.com/buluma/nginx)|[![Build Status GitHub](https://github.com/buluma/ansible-role-nginx/workflows/Ansible%20Molecule/badge.svg)](https://github.com/buluma/ansible-role-nginx/actions)|
 |[geerlingguy.apache](https://galaxy.ansible.com/buluma/geerlingguy.apache)|[![Build Status GitHub](https://github.com/buluma/geerlingguy.apache/workflows/Ansible%20Molecule/badge.svg)](https://github.com/buluma/geerlingguy.apache/actions)|
@@ -124,7 +127,8 @@ This role has been tested on these [container images](https://hub.docker.com/u/b
 
 |container|tags|
 |---------|----|
-|[EL](https://hub.docker.com/r/buluma/docker-molecule-images)|10, 9|
+|[EL](https://hub.docker.com/r/buluma/docker-molecule-images)|9|
+|[AlmaLinux](https://hub.docker.com/r/buluma/docker-molecule-images)|10|
 |[Debian](https://hub.docker.com/r/buluma/docker-molecule-images)|all|
 |[Fedora](https://hub.docker.com/r/buluma/docker-molecule-images)|44, 43|
 |[Ubuntu](https://hub.docker.com/r/buluma/docker-molecule-images)|all|
