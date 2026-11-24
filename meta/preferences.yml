@@ -2,16 +2,16 @@
 # Pins the CI platform/version matrix for this role. Without this, ansible-generator
 # falls back to default_platforms and silently discards these choices on regenerate.
 platforms:
+  # EL 10 is split into AlmaLinux 10 alone: the rockylinux10 test image
+  # ships both python3.9 and python3.12, ansible auto-discovers 3.12, but
+  # the RPM python3-passlib only installs for 3.9, so
+  # community.general.htpasswd can't import it. almalinux10 doesn't hit this.
   - name: EL
     versions:
-      # rockylinux10 is excluded directly in the workflow matrix (this
-      # schema can't express per-distro, not just per-version,
-      # exclusions): its test image ships both python3.9 and python3.12,
-      # ansible auto-discovers 3.12, but the RPM python3-passlib only
-      # installs for 3.9, so community.general.htpasswd can't import it.
-      # almalinux10 doesn't hit this.
-      - "10"
       - "9"
+  - name: AlmaLinux
+    versions:
+      - "10"
   - name: Debian
     versions:
       - all
